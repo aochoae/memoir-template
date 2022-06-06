@@ -1,0 +1,118 @@
+%
+% Build
+%
+% - make clean
+% - make
+%
+\documentclass[12pt, letterpaper]{memoir}
+%
+% LuaTeX is required
+\usepackage{ifluatex}
+\ifluatex
+\else
+  \PackageError{memoir}{LuaTeX engine required}{You could try with the `lualatex` command.}
+\fi
+
+%
+% Document
+\DoubleSpacing
+\isopage
+\isopage[8]
+
+\usepackage[T1]{fontenc}
+\usepackage{stix}
+
+\usepackage[hidelinks, linktoc = all]{hyperref}
+\usepackage{bookmark}
+\usepackage{memhfixc}
+\hypersetup{
+  pdfauthor   = {Author},
+  pdftitle    = {Title},
+  pdfsubject  = {Subtitle},
+  pdfkeywords = {keyword, keyword-2}
+}
+
+%
+% Images
+\usepackage{tikz}
+\usetikzlibrary{external}
+\tikzexternalize[prefix=images/, mode=list and make]
+\tikzset{
+  external/system call={%
+    lualatex \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"
+  }
+}
+
+%
+% Code
+\usepackage[outputdir=.]{minted}
+\usemintedstyle{vs}
+
+%
+% Bibliography
+\usepackage[backend=biber, style=apa, backref=true]{biblatex}
+\DeclareLanguageMapping{spanish}{spanish-apa}
+\usepackage[autostyle=false]{csquotes}
+\addbibresource{bibliography.bib}
+
+% TODO template
+\usepackage{lipsum}
+
+\begin{document}
+
+%
+% Frontmatter
+%
+\title{LaTeX Document}
+\author{Luis A. Ochoa}
+\date{December 2022}
+\maketitle
+
+
+% Table of contents
+\clearpage
+\tableofcontents
+\clearpage
+\listoffigures
+\clearpage
+\listoftables
+
+% Introductory
+\chapter{Preface}
+
+  \lipsum[2-4]
+
+Esta es una intro...
+
+%
+% Mainmatter
+%
+\mainmatter
+
+\chapter{Tema 1}
+  \input{sections/section-1.1}
+
+\chapter{Tema 2}
+  \input{sections/section-2.1}
+
+%
+% Appendix
+%
+\appendix
+
+\chapter{Tables}
+  \input{sections/appendix-1.1}
+
+\chapter{Tables 2}
+  \input{sections/appendix-2.1}
+
+%
+% Backmatter
+%
+\backmatter
+
+\printbibliography[heading=bibintoc]
+
+\end{document}
+%
+%
