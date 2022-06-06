@@ -1,3 +1,8 @@
+#
+# A memoir template for Computer Science
+#
+# Debian GNU/Linux
+#
 
 # Document
 DOCUMENT = book
@@ -10,19 +15,22 @@ BIB      = biber
 BIBFLAGS = --validate-datamodel
 
 # Make
-MKFLAGS  = -j 2 -f $(DOCUMENT).makefile
-
-# Auxiliar files
-AUXFILES = $(shell cat .hidden)
+TIKZFLAGS = -j 2 -f $(DOCUMENT).makefile
 
 build:
 	$(TEX)  $(TEXFLAGS) $(DOCUMENT)
-	$(MAKE) $(MKFLAGS)
+	$(MAKE) .tikz
 	$(BIB)  $(BIBFLAGS) $(DOCUMENT)
 	$(TEX)  $(TEXFLAGS) $(DOCUMENT)
 	$(TEX)  $(TEXFLAGS) $(DOCUMENT)
 
-clean:
-	$(RM) $(AUXFILES) images/*
-	$(RM) -r _minted-book
+.tikz:
+ifeq ($(wildcard $(DOCUMENT).makefile),)
+else
+	$(MAKE) $(TIKZFLAGS)
+endif
 
+clean:
+	$(RM) *.aux *.bbl *.bcf *.blg *.lof *.lot *.run.xml *.toc *.pdf
+	$(RM) images/*
+	$(RM) -r _minted-*

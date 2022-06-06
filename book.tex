@@ -1,4 +1,6 @@
 %
+% A memoir template for Computer Science
+%
 % Build
 %
 % - make clean
@@ -12,16 +14,17 @@
 \else
   \PackageError{memoir}{LuaTeX engine required}{You could try with the `lualatex` command.}
 \fi
-
 %
 % Document
 \DoubleSpacing
 \isopage
 \isopage[8]
-
+%
+% Fonts
 \usepackage[T1]{fontenc}
 \usepackage{stix}
-
+%
+% Hypertext links in the document
 \usepackage[hidelinks, linktoc = all]{hyperref}
 \usepackage{bookmark}
 \usepackage{memhfixc}
@@ -31,7 +34,6 @@
   pdfsubject  = {Subtitle},
   pdfkeywords = {keyword, keyword-2}
 }
-
 %
 % Images
 \usepackage{tikz}
@@ -42,24 +44,21 @@
     lualatex \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"
   }
 }
-
 %
 % Code
 \usepackage[outputdir=.]{minted}
 \usemintedstyle{vs}
-
 %
 % Bibliography
 \usepackage[backend=biber, style=apa, backref=true]{biblatex}
 \DeclareLanguageMapping{spanish}{spanish-apa}
 \usepackage[autostyle=false]{csquotes}
 \addbibresource{bibliography.bib}
-
-% TODO template
+%
+% TODO Template
 \usepackage{lipsum}
 
 \begin{document}
-
 %
 % Frontmatter
 %
@@ -67,8 +66,7 @@
 \author{Luis A. Ochoa}
 \date{December 2022}
 \maketitle
-
-
+%
 % Table of contents
 \clearpage
 \tableofcontents
@@ -76,10 +74,9 @@
 \listoffigures
 \clearpage
 \listoftables
-
+%
 % Introductory
 \chapter{Preface}
-
   \lipsum[2-4]
 
 Esta es una intro...
