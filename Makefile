@@ -5,7 +5,7 @@
 #
 
 # Document
-DOCUMENT = book
+DOCUMENT = $(patsubst %.tex, %, $(wildcard *.tex))
 
 # TeX
 TEX      = lualatex
@@ -18,10 +18,13 @@ BIBFLAGS = --validate-datamodel
 TIKZFLAGS = -j 2 -f $(DOCUMENT).makefile
 
 build:
-	$(TEX)  $(TEXFLAGS) $(DOCUMENT)
+	$(MAKE) .tex
 	$(MAKE) .tikz
-	$(BIB)  $(BIBFLAGS) $(DOCUMENT)
-	$(TEX)  $(TEXFLAGS) $(DOCUMENT)
+	$(MAKE) .bib
+	$(MAKE) .tex
+	$(MAKE) .tex
+
+.tex:
 	$(TEX)  $(TEXFLAGS) $(DOCUMENT)
 
 .tikz:
@@ -30,7 +33,10 @@ else
 	$(MAKE) $(TIKZFLAGS)
 endif
 
+.bib:
+	$(BIB)  $(BIBFLAGS) $(DOCUMENT)
+
 clean:
-	$(RM) *.aux *.bbl *.bcf *.blg *.lof *.lot *.run.xml *.toc *.pdf
+	$(RM) *.aux *.bbl *.bcf *.blg *.lof *.lol *.lot *.run.xml *.toc *.pdf
 	$(RM) images/*
 	$(RM) -r _minted-*

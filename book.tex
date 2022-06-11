@@ -16,9 +16,10 @@
 \fi
 %
 % Document
-\DoubleSpacing
+\OnehalfSpacing
 \isopage
 \isopage[8]
+\pagestyle{ruled}
 %
 % Fonts
 \usepackage[T1]{fontenc}
@@ -46,7 +47,7 @@
 }
 %
 % Code
-\usepackage[outputdir=.]{minted}
+\usepackage[chapter, outputdir=.]{minted}
 \usemintedstyle{vs}
 %
 % Bibliography
@@ -62,8 +63,9 @@
 %
 % Frontmatter
 %
+\frontmatter
 \title{LaTeX Document}
-\author{Luis A. Ochoa}
+\author{Author}
 \date{December 2022}
 \maketitle
 %
@@ -79,17 +81,15 @@
 \chapter{Preface}
   \lipsum[2-4]
 
-Esta es una intro...
-
 %
 % Mainmatter
 %
 \mainmatter
 
-\chapter{Tema 1}
+\chapter{Programming}
   \input{sections/section-1.1}
 
-\chapter{Tema 2}
+\chapter{Math}
   \input{sections/section-2.1}
 
 %
@@ -99,9 +99,6 @@ Esta es una intro...
 
 \chapter{Tables}
   \input{sections/appendix-1.1}
-
-\chapter{Tables 2}
-  \input{sections/appendix-2.1}
 
 %
 % Backmatter
