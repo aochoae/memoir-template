@@ -8,9 +8,17 @@
 DOCUMENT = $(patsubst %.tex, %, $(wildcard *.tex))
 
 # TeX
-TEX      = lualatex
+UNAME_S := $(shell uname -s)
+
+ifeq ($(UNAME_S), Darwin)
+	TEX = /Library/TeX/texbin/lualatex
+else
+	TEX = lualatex
+endif
+
 TEXFLAGS = --shell-escape
 
+# Bibliography
 BIB      = biber
 BIBFLAGS = --validate-datamodel
 
