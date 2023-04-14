@@ -15,6 +15,9 @@
   \PackageError{memoir}{LuaTeX engine required}{You could try with the `lualatex` command.}
 \fi
 %
+% Conditionals to test which platform is being used
+\usepackage{ifplatform}
+%
 % Document
 \OnehalfSpacing
 \isopage
@@ -40,15 +43,24 @@
 \usepackage{tikz}
 \usetikzlibrary{external}
 \tikzexternalize[prefix=images/, mode=list and make]
-\tikzset{
-  external/system call={%
-    lualatex \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"
+\ifmacosx
+  \tikzset{
+    external/system call={%
+      /Library/TeX/texbin/lualatex \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"
+    }
   }
-}
+\fi
+\iflinux
+  \tikzset{
+    external/system call={%
+      lualatex \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"
+    }
+  }
+\fi
 %
 % Code
-\usepackage[chapter, outputdir=.]{minted}
-\usemintedstyle{vs}
+\usepackage[scaled=0.85]{beramono}
+\usepackage[force]{pygmentex}
 %
 % Bibliography
 \usepackage[backend=biber, style=apa, backref=true]{biblatex}

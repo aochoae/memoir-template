@@ -27,9 +27,9 @@ TIKZFLAGS = -j 2 -f $(DOCUMENT).makefile
 
 build:
 	$(MAKE) .tex
+	$(MAKE) .tex
 	$(MAKE) .tikz
 	$(MAKE) .bib
-	$(MAKE) .tex
 	$(MAKE) .tex
 
 .tex:
@@ -45,6 +45,6 @@ endif
 	$(BIB)  $(BIBFLAGS) $(DOCUMENT)
 
 clean:
-	$(RM) *.aux *.bbl *.bcf *.blg *.lof *.lol *.lot *.run.xml *.toc *.pdf
+	$(RM) *.aux *.bbl *.bcf *.blg *.lof *.lol *.lot *.run.xml *.toc *.pdf *.auxlock *.figlist *.snippets *.pygmented
 	$(RM) images/*
 	$(RM) -r _minted-*
